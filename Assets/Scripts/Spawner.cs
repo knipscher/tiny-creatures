@@ -6,7 +6,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int numberToSpawn;
     [SerializeField] private float radius;
     [SerializeField] private bool fillSphere;
-        
+    private int _startingCount;
+    
     private void Start()
     {
         for (int i = 0; i < numberToSpawn; i++)
@@ -28,5 +29,17 @@ public class Spawner : MonoBehaviour
                 Instantiate(prefabToSpawn, position, Random.rotation, transform);
             }
         }
+
+        _startingCount = GetSpawnCount();
+    }
+
+    public int GetStartingCount()
+    {
+        return _startingCount;
+    }
+
+    public int GetSpawnCount()
+    {
+        return transform.childCount;
     }
 }

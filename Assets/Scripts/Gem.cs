@@ -3,21 +3,19 @@ using UnityEngine;
 public class Gem : MonoBehaviour
 {
     private Player _player;
-    private MeshRenderer _renderer;
-    
+    [SerializeField] private MeshRenderer meshRenderer;
     
     private void Start()
     {
         _player = FindObjectOfType<Player>();
-        _renderer = GetComponent<MeshRenderer>();
-        _renderer.enabled = false;
+        meshRenderer.enabled = false;
     }
 
     private void Update()
     {
         if (Vector3.Distance(transform.position, _player.transform.position) < 10f)
         {
-            _renderer.enabled = true;
+            meshRenderer.enabled = true;
         }
     }
 

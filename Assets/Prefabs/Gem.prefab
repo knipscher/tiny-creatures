@@ -105,7 +105,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-3058605835097172258
 MonoBehaviour:
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d633273ef2741d4469fcd2bc3375bfec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 3731018435173392825}
 --- !u!1001 &2595947908479270205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,6 +211,12 @@ PrefabInstance:
 --- !u!4 &2561441680161921750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 866f2c7f1f4036f409ee02501cc2e8bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2595947908479270205}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3731018435173392825 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 866f2c7f1f4036f409ee02501cc2e8bb,
     type: 3}
   m_PrefabInstance: {fileID: 2595947908479270205}
   m_PrefabAsset: {fileID: 0}

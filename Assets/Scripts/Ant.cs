@@ -42,27 +42,41 @@ public class Ant : MonoBehaviour
         }
     }
 
-    public void Bite(Vector3 position)
+    public bool Bite(Transform newParent)
     {
+        if (_isBiting)
+        {
+            return false;
+        }
+
         _rigidbody.isKinematic = true;
         _isBiting = true;
-        transform.SetParent(_playerTransform);
+        transform.SetParent(newParent);
+        foreach (var collider in GetComponentsInChildren<Collider>())
+        {
+            collider.enabled = false;
+        }
+
+        return true;
     }
 
     private void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, _playerTransform.position) < targetingDistance)
+        if (!_isBiting)
         {
-            var force = (_playerTransform.position - transform.position).normalized * speed;
-            _rigidbody.AddForce(force);
-        }
-        else
-        {
-            var force = (targetPosition - transform.position).normalized * speed;
-            _rigidbody.AddForce(force);
-        }
+            if (Vector3.Distance(transform.position, _playerTransform.position) < targetingDistance)
+            {
+                var force = (_playerTransform.position - transform.position).normalized * speed;
+                _rigidbody.AddForce(force);
+            }
+            else
+            {
+                var force = (targetPosition - transform.position).normalized * speed;
+                _rigidbody.AddForce(force);
+            }
 
-        var gravity = (planetCenter - transform.position).normalized * gravitySpeed;
-        _rigidbody.AddForce(gravity);
+            var gravity = (planetCenter - transform.position).normalized * gravitySpeed;
+            _rigidbody.AddForce(gravity);
+        }
     }
 }
