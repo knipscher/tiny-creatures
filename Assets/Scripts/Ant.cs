@@ -42,6 +42,13 @@ public class Ant : MonoBehaviour
         }
     }
 
+    public void Bite(Vector3 position)
+    {
+        _rigidbody.isKinematic = true;
+        _isBiting = true;
+        transform.SetParent(_playerTransform);
+    }
+
     private void FixedUpdate()
     {
         if (Vector3.Distance(transform.position, _playerTransform.position) < targetingDistance)

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class Player : MonoBehaviour
     
     private Rigidbody _rigidbody;
 
-    [FormerlySerializedAs("cameraTransform")] [SerializeField] private Transform _cameraTransform;
+    [SerializeField] private Transform _cameraTransform;
 
     private float _horizontalInput;
     private float _verticalInput;
@@ -32,6 +31,15 @@ public class Player : MonoBehaviour
         
         _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(0, _horizontalInput * cameraRotationSpeed, 0));
         _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(-_verticalInput * cameraRotationSpeed, 0, 0));
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var ant = other.GetComponentInParent<Ant>();
+        if (ant)
+        {
+            ant.Bite(ant.transform.position);
+        }
     }
 
     public void Eat(Gem gem)
