@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -41,11 +42,22 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector3 planetCenter;
     [SerializeField] private float maxDistance;
     [SerializeField] private AnimationCurve distanceCurve;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip digClip;
+    [SerializeField] private AudioClip gemClip;
+    [SerializeField] private AudioClip antClip;
+
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject lossPanel;
     
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         StartCoroutine(DelayAntStart());
+        
+        winPanel.SetActive(false);
+        lossPanel.SetActive(false);
     }
 
     private IEnumerator DelayAntStart()
@@ -76,6 +88,7 @@ public class Player : MonoBehaviour
 
     public void OnBurrow()
     {
+        audioSource.PlayOneShot(digClip);
         _timeSinceLastBurrow = 0;
     }
 
@@ -131,8 +144,9 @@ public class Player : MonoBehaviour
 
     private void OnBitten()
     {
+        audioSource.PlayOneShot(antClip);
         _attachedAntCount++;
-        var quarterAnts = Mathf.RoundToInt(antSpawner.GetStartingCount() / 4f);
+        var quarterAnts = Mathf.RoundToInt(antSpawner.GetStartingCount() / 8f);
         antText.text = "ants attached: " + _attachedAntCount + " / " + quarterAnts;
         if (_attachedAntCount >= quarterAnts)
         {
@@ -144,10 +158,12 @@ public class Player : MonoBehaviour
     private void Die()
     {
         _isDead = true;
+        lossPanel.SetActive(true);
     }
 
     public void Eat(Gem gem)
     {
+        audioSource.PlayOneShot(gemClip);
         _points++;
         var gemCount = gemSpawner.GetStartingCount();
         gemText.text = "gems eaten: " + _points + " / " + gemCount;
@@ -161,5 +177,16 @@ public class Player : MonoBehaviour
     private void Win()
     {
         _canAntsBite = false;
+        winPanel.SetActive(true);
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

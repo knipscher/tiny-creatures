@@ -13,7 +13,7 @@ public class Gem : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, _player.transform.position) < 10f)
+        if (Vector3.Distance(transform.position, _player.transform.position) < 15f)
         {
             meshRenderer.enabled = true;
         }
