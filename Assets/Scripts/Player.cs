@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
     {
         audioSource.PlayOneShot(antClip);
         _attachedAntCount++;
-        var quarterAnts = Mathf.RoundToInt(antSpawner.GetStartingCount() / 8f);
+        var quarterAnts = Mathf.RoundToInt(antSpawner.GetStartingCount() / 4f);
         antText.text = "ants attached: " + _attachedAntCount + " / " + quarterAnts;
         if (_attachedAntCount >= quarterAnts)
         {
@@ -167,7 +167,6 @@ public class Player : MonoBehaviour
         _points++;
         var gemCount = gemSpawner.GetStartingCount();
         gemText.text = "gems eaten: " + _points + " / " + gemCount;
-        Destroy(gem.gameObject);
         if (_points >= gemCount)
         {
             Win();
