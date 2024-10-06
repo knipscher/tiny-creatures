@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 
     private float _horizontalInput;
     private float _verticalInput;
+
+    private int _points;
     
     private void Start()
     {
@@ -30,5 +32,12 @@ public class Player : MonoBehaviour
         
         _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(0, _horizontalInput * cameraRotationSpeed, 0));
         _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(-_verticalInput * cameraRotationSpeed, 0, 0));
+    }
+
+    public void Eat(Gem gem)
+    {
+        _points++;
+        Debug.LogWarning("Player has " + _points + " points");
+        Destroy(gem.gameObject);   
     }
 }
