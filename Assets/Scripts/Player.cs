@@ -29,5 +29,6 @@ public class Player : MonoBehaviour
         _rigidbody.AddForce(Vector3.up * (Input.GetAxis("Jump") * jumpSpeed));
         
         _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(0, _horizontalInput * cameraRotationSpeed, 0));
+        _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(-_verticalInput * cameraRotationSpeed, 0, 0));
     }
 }
